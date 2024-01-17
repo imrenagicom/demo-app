@@ -1,0 +1,57 @@
+version: '3.9'
+services:
+  fluentbit:
+    image: fluent/fluent-bit:2.1.10
+    ports:
+      - "24224:24224"
+      - "24224:24224/udp"
+    volumes:
+      - ./scripts/fluentbit/fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf
+      - ./scripts/fluentbit/map.json:/fluent-bit/etc/map.json
+      - ./logs:/app/logs
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - 3000:3000
+    volumes:
+      - ./scripts/grafana/provisioning:/etc/grafana/provisioning
+      - ./scripts/grafana/dashboards:/etc/grafana/demo-dashboards
+      - grafana_data:/var/lib/grafana
+
+  postgres:
+    image: postgres:16
+    command: postgres -c 'max_connections=1000'
+    environment:
+      POSTGRES_DB: course
+      POSTGRES_USER: course
+      POSTGRES_PASSWORD: course
+    ports:
+      - "5432:5432"
+    restart: always
+    volumes:
+      - postgres:/var/lib/postgresql/data/
+
+  redis:
+    image: bitnami/redis:7.0
+    environment:
+      - ALLOW_EMPTY_PASSWORD=no
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+    volumes:
+      - redis_data:/bitnami
+    ports:
+      - "6379:6379"
+
+  loki:
+    image: grafana/loki:2.9.2
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./scripts/loki:/etc/loki
+    command: -config.file=/etc/loki/config.yaml
+
+volumes:
+  grafana_data:
+  postgres:
+  redis_data:
+  

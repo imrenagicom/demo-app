@@ -1,0 +1,101 @@
+syntax = "proto3";
+package imrenagicom.api.course.v1;
+
+option go_package = "github.com/imrenagi/app/pkg/apiclient/course/v1";
+
+import "google/api/annotations.proto";
+import "google/api/resource.proto";
+import "google/api/field_behavior.proto";
+import "google/api/client.proto";
+import "google/protobuf/any.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "google/protobuf/timestamp.proto";
+
+message Course {
+  option (google.api.resource) = {
+    type: "course.api.imrenagi.com/Course"
+    pattern: "courses/{course}"
+    singular: "course"
+    plural: "courses"
+  };
+  string name = 1 [(google.api.field_behavior) = IDENTIFIER];
+  string course_id = 2 [(google.api.field_behavior) = OUTPUT_ONLY];  
+  string display_name = 3;
+  string description = 4;
+  repeated Instructor instructors = 5;
+  google.protobuf.Timestamp published_at = 6;
+  repeated Batch batches = 7;
+  Price price = 8;
+}
+
+message Batch {
+  option (google.api.resource) = {
+    type: "course.api.imrenagi.com/CourseBatch"
+    pattern: "courses/{course}/batches/{batch}"
+  };  
+  
+  string name = 1 [(google.api.field_behavior) = IDENTIFIER];
+  string batch_id = 2 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string display_name = 3;
+  
+  string course = 4 [(google.api.resource_reference) = {
+    type: "course.api.imrenagi.com/Course"
+  }];
+  google.protobuf.Timestamp start_date = 5;
+  google.protobuf.Timestamp end_date = 6;
+  int32 max_seats = 7;
+  int32 available_seats = 8;
+  Price price = 9;
+}
+
+message Instructor {
+  string name = 1;
+  string image_url = 2;
+  repeated string roles = 3;
+}
+
+message Price {
+  double value = 1;
+  string currency = 2;
+}
+
+message ListCoursesRequest {
+  uint64 page_size = 1;
+  string page_token = 2;
+  string order_by = 3;
+}
+
+message ListCoursesResponse {
+  repeated Course courses = 1;
+  string next_page_token = 2;
+}
+
+message GetCourseRequest {
+  // The course identifier to retrieve
+  string course = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (google.api.resource_reference) = {
+      type: "course.api.imrenagi.com/Course"
+    }];  
+}
+
+service CatalogService {
+  rpc ListCourses(ListCoursesRequest) returns (ListCoursesResponse) {
+    option (google.api.http) = {
+      get: "/api/course/v1/courses"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "List concerts"
+    };
+  }
+
+  rpc GetCourse(GetCourseRequest) returns (Course) {
+    option (google.api.http) = {
+      get: "/api/course/v1/courses/{course}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get course"
+    };
+    option (google.api.method_signature) = "course";
+  }
+}

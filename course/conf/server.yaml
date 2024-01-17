@@ -1,0 +1,32 @@
+grpc:
+  host:
+  port: 9900
+http:
+  host:
+  port: 8800
+log:
+  level: debug # trace, debug, info, warn, error, fatal, panic
+  type: json # either json or text
+  logFileEnabled: true
+  logFilePath: logs/app.log
+db:
+  host: 127.0.0.1
+  name: course
+  user: course
+  password: course
+  port: 5432
+  maxIdleConn: 5
+  maxOpenConn: 10
+redis:
+  host: 127.0.0.1
+  port: 6379
+  db: 0
+  password: ""
+  connDialTimeoutSec: 1
+  readTimeoutSec: 1
+  writeTimeoutSec: 1
+  connPoolSize: 5
+  connPoolTimeoutSec: 1
+  minIdleConn: 10
+  maxIdleConn: 20
+  

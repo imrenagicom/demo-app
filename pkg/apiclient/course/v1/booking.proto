@@ -1,0 +1,185 @@
+syntax = "proto3";
+package imrenagicom.api.course.v1;
+
+option go_package = "github.com/imrenagi/app/pkg/apiclient/course/v1";
+
+import "google/api/annotations.proto";
+import "google/api/resource.proto";
+import "google/api/field_behavior.proto";
+import "google/api/client.proto";
+import "google/protobuf/any.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/field_mask.proto";
+import "pkg/apiclient/course/v1/catalog.proto";
+
+enum Status {
+  BOOKING_UNSPECIFIED = 0;
+  CREATED = 1;
+  RESERVED = 2;
+  COMPLETED = 3;
+  FAILED = 4;
+  EXPIRED = 5;
+}
+
+message Booking {
+  option (google.api.resource) = {
+    type: "course.api.imrenagi.com/Booking"
+    pattern: "bookings/{booking}"
+    singular: "booking"
+    plural: "bookings"
+  };
+  string number = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string course = 2 [(google.api.resource_reference) = {
+    type: "course.api.imrenagi.com/Course"
+  }];
+  string batch = 3 [(google.api.resource_reference) = {
+    type: "course.api.imrenagi.com/CourseBatch"
+  }];
+  double price = 4 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string currency = 5 [(google.api.field_behavior) = OUTPUT_ONLY];
+  Status status = 6 [(google.api.field_behavior) = OUTPUT_ONLY];
+  google.protobuf.Timestamp created_at = 7 [(google.api.field_behavior) = OUTPUT_ONLY];
+  google.protobuf.Timestamp reserved_at = 8 [(google.api.field_behavior) = OUTPUT_ONLY];
+  google.protobuf.Timestamp paid_at = 9 [(google.api.field_behavior) = OUTPUT_ONLY];
+  Customer customer = 10;
+  Payment payment = 11;
+  google.protobuf.Timestamp expired_at = 12 [(google.api.field_behavior) = OUTPUT_ONLY];
+  google.protobuf.Timestamp failed_at = 13 [(google.api.field_behavior) = OUTPUT_ONLY];
+}
+
+message Address {
+  string street_address = 1;
+  string apt_suite = 2;
+  string city = 3;
+  string country = 4;
+  string zip_code = 5;
+  string state = 6;
+}
+
+message Customer {
+  string name = 1;  
+  string email = 2;
+  string phone_number = 3;
+  Address shipping_address = 4;
+  Address billing_address = 5;
+}
+
+message Payment {  
+  string invoice_number = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
+  string method = 2;
+}
+
+message CreateBookingRequest {  
+  Booking booking = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message GetBookingRequest {
+  string booking = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (google.api.resource_reference) = {
+      type: "course.api.imrenagi.com/Booking"
+    }];
+}
+
+message ReserveBookingRequest {
+  string booking = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (google.api.resource_reference) = {
+      type: "course.api.imrenagi.com/Booking"
+    }];
+}
+
+message ReserveBookingResponse {}
+
+message SetPaymentDetailRequest {
+  string booking = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (google.api.resource_reference) = {
+      type: "course.api.imrenagi.com/Booking"
+    }];
+  Payment payment = 2 [(google.api.field_behavior) = REQUIRED];
+  Customer customer = 3 [(google.api.field_behavior) = REQUIRED];
+}
+
+message SetPaymentDetailResponse {}
+
+message ExpireBookingRequest {
+  string booking = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (google.api.resource_reference) = {
+      type: "course.api.imrenagi.com/Booking"
+    }];
+}
+
+message ExpireBookingResponse {}
+
+message ListBookingsRequest {
+  // invoice number of the booking used for filtering.
+  string invoice = 1 [
+    (google.api.field_behavior) = OPTIONAL,
+    (google.api.resource_reference) = {
+      type: "payment.api.imrenagi.com/Invoice"
+    }];
+  // booking status used for filtering.
+  Status status = 2;
+  uint64 page_size = 3;
+  string page_token = 4;
+  string order_by = 5;
+}
+
+message ListBookingsResponse {
+  repeated Booking bookings = 1;
+  string next_page_token = 2;
+}
+
+service BookingService {
+  rpc ListBookings(ListBookingsRequest) returns (ListBookingsResponse) {
+    option (google.api.http) = {
+      get: "/api/course/v1/bookings"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "List booking"
+    };
+  }
+
+  rpc CreateBooking(CreateBookingRequest) returns (Booking) {
+    option (google.api.http) = {
+      post: "/api/course/v1/bookings"
+      body:"booking"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Create new booking"
+    };
+  }
+
+  rpc GetBooking(GetBookingRequest) returns (Booking) {
+    option (google.api.http) = {
+      get: "/api/course/v1/bookings/{booking}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get booking"
+    };
+  }
+
+  rpc ReserveBooking(ReserveBookingRequest) returns (ReserveBookingResponse) {
+    option (google.api.http) = {
+      post: "/api/course/v1/bookings/{booking}:reserve"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Reserve booking"
+    };
+  }
+
+  rpc ExpireBooking(ExpireBookingRequest) returns (ExpireBookingResponse) {
+    option (google.api.http) = {
+      post: "/api/course/v1/bookings/{booking}:expire"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Expire booking"
+    };
+  }
+
+}

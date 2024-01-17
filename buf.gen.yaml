@@ -1,0 +1,24 @@
+version: v1
+plugins:
+  - plugin: go
+    out: .
+    opt:
+      - paths=source_relative
+  - plugin: go-grpc
+    out: .
+    opt:
+      - paths=source_relative
+  - plugin: grpc-gateway
+    out: .
+    opt:
+      - logtostderr=true
+      - paths=source_relative
+      - generate_unbound_methods=true
+  - name: openapiv2
+    out: third_party/OpenAPI
+    strategy: all
+    opt:
+      - allow_merge=true
+      - merge_file_name=app
+      - include_package_in_tags=true
+      - proto3_optional_nullable=true
