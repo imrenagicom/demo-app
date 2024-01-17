@@ -19,11 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	BookingService_ListBookings_FullMethodName   = "/imrenagicom.api.course.v1.BookingService/ListBookings"
-	BookingService_CreateBooking_FullMethodName  = "/imrenagicom.api.course.v1.BookingService/CreateBooking"
-	BookingService_GetBooking_FullMethodName     = "/imrenagicom.api.course.v1.BookingService/GetBooking"
-	BookingService_ReserveBooking_FullMethodName = "/imrenagicom.api.course.v1.BookingService/ReserveBooking"
-	BookingService_ExpireBooking_FullMethodName  = "/imrenagicom.api.course.v1.BookingService/ExpireBooking"
+	BookingService_ListBookings_FullMethodName   = "/imrenagicom.demoapp.course.v1.BookingService/ListBookings"
+	BookingService_CreateBooking_FullMethodName  = "/imrenagicom.demoapp.course.v1.BookingService/CreateBooking"
+	BookingService_GetBooking_FullMethodName     = "/imrenagicom.demoapp.course.v1.BookingService/GetBooking"
+	BookingService_ReserveBooking_FullMethodName = "/imrenagicom.demoapp.course.v1.BookingService/ReserveBooking"
+	BookingService_ExpireBooking_FullMethodName  = "/imrenagicom.demoapp.course.v1.BookingService/ExpireBooking"
 )
 
 // BookingServiceClient is the client API for BookingService service.
@@ -228,7 +228,7 @@ func _BookingService_ExpireBooking_Handler(srv interface{}, ctx context.Context,
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var BookingService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "imrenagicom.api.course.v1.BookingService",
+	ServiceName: "imrenagicom.demoapp.course.v1.BookingService",
 	HandlerType: (*BookingServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

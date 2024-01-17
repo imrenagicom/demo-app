@@ -5,7 +5,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/imrenagi/app/internal/config"
+	"github.com/imrenagicom/demo-app/internal/config"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 )

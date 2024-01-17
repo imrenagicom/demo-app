@@ -6,9 +6,9 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/imrenagi/app/course/catalog"
-	pu "github.com/imrenagi/app/internal/proto"
-	v1 "github.com/imrenagi/app/pkg/apiclient/course/v1"
+	"github.com/imrenagicom/demo-app/course/catalog"
+	pu "github.com/imrenagicom/demo-app/internal/proto"
+	v1 "github.com/imrenagicom/demo-app/pkg/apiclient/course/v1"
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 

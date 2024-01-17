@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"time"
 
-	v1 "github.com/imrenagi/app/pkg/apiclient/course/v1"
+	v1 "github.com/imrenagicom/demo-app/pkg/apiclient/course/v1"
 
 	"github.com/google/uuid"
 	"google.golang.org/protobuf/types/known/timestamppb"

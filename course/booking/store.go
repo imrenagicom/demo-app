@@ -5,8 +5,8 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/imrenagi/app/course/catalog"
-	"github.com/imrenagi/app/internal/db"
+	"github.com/imrenagicom/demo-app/course/catalog"
+	"github.com/imrenagicom/demo-app/internal/db"
 
 	sq "github.com/Masterminds/squirrel"
 	"github.com/jmoiron/sqlx"

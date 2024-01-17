@@ -1,7 +1,7 @@
 syntax = "proto3";
-package imrenagicom.api;
+package imrenagicom.demoapp;
 
-option go_package = "github.com/imrenagi/app/pkg/apiclient";
+option go_package = "github.com/imrenagicom/demo-app/pkg/apiclient";
 
 import "google/api/annotations.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";

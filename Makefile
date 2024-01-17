@@ -7,7 +7,7 @@ $(shell mkdir -p $(BIN_DIR) $(OUT_DIR))
 
 APP_NAME?=imrenagicom-app
 SERVER_NAME=imrenagicom-app
-PACKAGE=github.com/imrenagi/app
+PACKAGE=github.com/imrenagicom/demo-app
 TRACK?=stable
 IMAGE_REGISTRY=imrenagi
 IMAGE_NAME=$(IMAGE_REGISTRY)/app

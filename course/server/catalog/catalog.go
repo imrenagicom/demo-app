@@ -3,8 +3,8 @@ package catalog
 import (
 	"context"
 
-	"github.com/imrenagi/app/course/catalog"
-	v1 "github.com/imrenagi/app/pkg/apiclient/course/v1"
+	"github.com/imrenagicom/demo-app/course/catalog"
+	v1 "github.com/imrenagicom/demo-app/pkg/apiclient/course/v1"
 )
 
 type Service interface {

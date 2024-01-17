@@ -8,7 +8,7 @@ import (
 	"time"
 
 	sq "github.com/Masterminds/squirrel"
-	"github.com/imrenagi/app/internal/db"
+	"github.com/imrenagicom/demo-app/internal/db"
 	"github.com/jmoiron/sqlx"
 	"github.com/redis/go-redis/v9"
 )

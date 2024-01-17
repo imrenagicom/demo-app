@@ -3,7 +3,7 @@ package redis
 import (
 	"time"
 
-	"github.com/imrenagi/app/internal/config"
+	"github.com/imrenagicom/demo-app/internal/config"
 	"github.com/redis/go-redis/v9"
 )
 

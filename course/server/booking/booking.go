@@ -3,8 +3,8 @@ package booking
 import (
 	"context"
 
-	"github.com/imrenagi/app/course/booking"
-	v1 "github.com/imrenagi/app/pkg/apiclient/course/v1"
+	"github.com/imrenagicom/demo-app/course/booking"
+	v1 "github.com/imrenagicom/demo-app/pkg/apiclient/course/v1"
 )
 
 func New(svc Service) *Server {

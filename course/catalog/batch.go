@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	v1 "github.com/imrenagi/app/pkg/apiclient/course/v1"
+	v1 "github.com/imrenagicom/demo-app/pkg/apiclient/course/v1"
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 

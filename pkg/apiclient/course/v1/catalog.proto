@@ -1,7 +1,7 @@
 syntax = "proto3";
-package imrenagicom.api.course.v1;
+package imrenagicom.demoapp.course.v1;
 
-option go_package = "github.com/imrenagi/app/pkg/apiclient/course/v1";
+option go_package = "github.com/imrenagicom/demo-app/pkg/apiclient/course/v1";
 
 import "google/api/annotations.proto";
 import "google/api/resource.proto";
@@ -13,7 +13,7 @@ import "google/protobuf/timestamp.proto";
 
 message Course {
   option (google.api.resource) = {
-    type: "course.api.imrenagi.com/Course"
+    type: "course.demoapp.imrenagicom/Course"
     pattern: "courses/{course}"
     singular: "course"
     plural: "courses"
@@ -30,7 +30,7 @@ message Course {
 
 message Batch {
   option (google.api.resource) = {
-    type: "course.api.imrenagi.com/CourseBatch"
+    type: "course.demoapp.imrenagicom/CourseBatch"
     pattern: "courses/{course}/batches/{batch}"
   };  
   
@@ -39,7 +39,7 @@ message Batch {
   string display_name = 3;
   
   string course = 4 [(google.api.resource_reference) = {
-    type: "course.api.imrenagi.com/Course"
+    type: "course.demoapp.imrenagicom/Course"
   }];
   google.protobuf.Timestamp start_date = 5;
   google.protobuf.Timestamp end_date = 6;
@@ -75,7 +75,7 @@ message GetCourseRequest {
   string course = 1 [
     (google.api.field_behavior) = REQUIRED,
     (google.api.resource_reference) = {
-      type: "course.api.imrenagi.com/Course"
+      type: "course.demoapp.imrenagicom/Course"
     }];  
 }
 

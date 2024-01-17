@@ -1,7 +1,7 @@
 package postgres
 
 import (
-	"github.com/imrenagi/app/internal/config"
+	"github.com/imrenagicom/demo-app/internal/config"
 
 	"github.com/jmoiron/sqlx"
 )

@@ -6,7 +6,7 @@ import (
 	"math/rand"
 	"time"
 
-	v1 "github.com/imrenagi/app/pkg/apiclient/course/v1"
+	v1 "github.com/imrenagicom/demo-app/pkg/apiclient/course/v1"
 
 	"github.com/go-faker/faker/v4"
 	"github.com/google/uuid"

@@ -303,7 +303,7 @@ func RegisterBookingServiceHandlerServer(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/imrenagicom.api.course.v1.BookingService/ListBookings", runtime.WithHTTPPathPattern("/api/course/v1/bookings"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/imrenagicom.demoapp.course.v1.BookingService/ListBookings", runtime.WithHTTPPathPattern("/api/course/v1/bookings"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -328,7 +328,7 @@ func RegisterBookingServiceHandlerServer(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/imrenagicom.api.course.v1.BookingService/CreateBooking", runtime.WithHTTPPathPattern("/api/course/v1/bookings"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/imrenagicom.demoapp.course.v1.BookingService/CreateBooking", runtime.WithHTTPPathPattern("/api/course/v1/bookings"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -353,7 +353,7 @@ func RegisterBookingServiceHandlerServer(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/imrenagicom.api.course.v1.BookingService/GetBooking", runtime.WithHTTPPathPattern("/api/course/v1/bookings/{booking}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/imrenagicom.demoapp.course.v1.BookingService/GetBooking", runtime.WithHTTPPathPattern("/api/course/v1/bookings/{booking}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -378,7 +378,7 @@ func RegisterBookingServiceHandlerServer(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/imrenagicom.api.course.v1.BookingService/ReserveBooking", runtime.WithHTTPPathPattern("/api/course/v1/bookings/{booking}:reserve"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/imrenagicom.demoapp.course.v1.BookingService/ReserveBooking", runtime.WithHTTPPathPattern("/api/course/v1/bookings/{booking}:reserve"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -403,7 +403,7 @@ func RegisterBookingServiceHandlerServer(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/imrenagicom.api.course.v1.BookingService/ExpireBooking", runtime.WithHTTPPathPattern("/api/course/v1/bookings/{booking}:expire"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/imrenagicom.demoapp.course.v1.BookingService/ExpireBooking", runtime.WithHTTPPathPattern("/api/course/v1/bookings/{booking}:expire"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -467,7 +467,7 @@ func RegisterBookingServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/imrenagicom.api.course.v1.BookingService/ListBookings", runtime.WithHTTPPathPattern("/api/course/v1/bookings"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/imrenagicom.demoapp.course.v1.BookingService/ListBookings", runtime.WithHTTPPathPattern("/api/course/v1/bookings"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -489,7 +489,7 @@ func RegisterBookingServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/imrenagicom.api.course.v1.BookingService/CreateBooking", runtime.WithHTTPPathPattern("/api/course/v1/bookings"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/imrenagicom.demoapp.course.v1.BookingService/CreateBooking", runtime.WithHTTPPathPattern("/api/course/v1/bookings"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -511,7 +511,7 @@ func RegisterBookingServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/imrenagicom.api.course.v1.BookingService/GetBooking", runtime.WithHTTPPathPattern("/api/course/v1/bookings/{booking}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/imrenagicom.demoapp.course.v1.BookingService/GetBooking", runtime.WithHTTPPathPattern("/api/course/v1/bookings/{booking}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -533,7 +533,7 @@ func RegisterBookingServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/imrenagicom.api.course.v1.BookingService/ReserveBooking", runtime.WithHTTPPathPattern("/api/course/v1/bookings/{booking}:reserve"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/imrenagicom.demoapp.course.v1.BookingService/ReserveBooking", runtime.WithHTTPPathPattern("/api/course/v1/bookings/{booking}:reserve"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -555,7 +555,7 @@ func RegisterBookingServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/imrenagicom.api.course.v1.BookingService/ExpireBooking", runtime.WithHTTPPathPattern("/api/course/v1/bookings/{booking}:expire"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/imrenagicom.demoapp.course.v1.BookingService/ExpireBooking", runtime.WithHTTPPathPattern("/api/course/v1/bookings/{booking}:expire"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return

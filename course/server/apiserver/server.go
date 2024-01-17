@@ -9,13 +9,13 @@ import (
 
 	_ "net/http/pprof"
 
-	"github.com/imrenagi/app/course/booking"
-	"github.com/imrenagi/app/course/catalog"
-	bookingsrv "github.com/imrenagi/app/course/server/booking"
-	catalogsrv "github.com/imrenagi/app/course/server/catalog"
-	"github.com/imrenagi/app/internal/config"
-	"github.com/imrenagi/app/internal/util"
-	v1 "github.com/imrenagi/app/pkg/apiclient/course/v1"
+	"github.com/imrenagicom/demo-app/course/booking"
+	"github.com/imrenagicom/demo-app/course/catalog"
+	bookingsrv "github.com/imrenagicom/demo-app/course/server/booking"
+	catalogsrv "github.com/imrenagicom/demo-app/course/server/catalog"
+	"github.com/imrenagicom/demo-app/internal/config"
+	"github.com/imrenagicom/demo-app/internal/util"
+	v1 "github.com/imrenagicom/demo-app/pkg/apiclient/course/v1"
 
 	"github.com/gorilla/mux"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"

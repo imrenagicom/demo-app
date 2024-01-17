@@ -19,8 +19,8 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	CatalogService_ListCourses_FullMethodName = "/imrenagicom.api.course.v1.CatalogService/ListCourses"
-	CatalogService_GetCourse_FullMethodName   = "/imrenagicom.api.course.v1.CatalogService/GetCourse"
+	CatalogService_ListCourses_FullMethodName = "/imrenagicom.demoapp.course.v1.CatalogService/ListCourses"
+	CatalogService_GetCourse_FullMethodName   = "/imrenagicom.demoapp.course.v1.CatalogService/GetCourse"
 )
 
 // CatalogServiceClient is the client API for CatalogService service.
@@ -129,7 +129,7 @@ func _CatalogService_GetCourse_Handler(srv interface{}, ctx context.Context, dec
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var CatalogService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "imrenagicom.api.course.v1.CatalogService",
+	ServiceName: "imrenagicom.demoapp.course.v1.CatalogService",
 	HandlerType: (*CatalogServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

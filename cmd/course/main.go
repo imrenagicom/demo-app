@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/imrenagi/app/cmd/course/commands"
+	"github.com/imrenagicom/demo-app/cmd/course/commands"
 
 	"github.com/rs/zerolog/log"
 )

@@ -5,9 +5,9 @@ import (
 	"errors"
 	"time"
 
-	"github.com/imrenagi/app/course/catalog"
-	"github.com/imrenagi/app/internal/db"
-	v1 "github.com/imrenagi/app/pkg/apiclient/course/v1"
+	"github.com/imrenagicom/demo-app/course/catalog"
+	"github.com/imrenagicom/demo-app/internal/db"
+	v1 "github.com/imrenagicom/demo-app/pkg/apiclient/course/v1"
 	"github.com/jmoiron/sqlx"
 )
 

@@ -1,7 +1,7 @@
 syntax = "proto3";
-package imrenagicom.api.course.v1;
+package imrenagicom.demoapp.course.v1;
 
-option go_package = "github.com/imrenagi/app/pkg/apiclient/course/v1";
+option go_package = "github.com/imrenagicom/demo-app/pkg/apiclient/course/v1";
 
 import "google/api/annotations.proto";
 import "google/api/resource.proto";
@@ -24,17 +24,17 @@ enum Status {
 
 message Booking {
   option (google.api.resource) = {
-    type: "course.api.imrenagi.com/Booking"
+    type: "course.demoapp.imrenagicom/Booking"
     pattern: "bookings/{booking}"
     singular: "booking"
     plural: "bookings"
   };
   string number = 1 [(google.api.field_behavior) = OUTPUT_ONLY];
   string course = 2 [(google.api.resource_reference) = {
-    type: "course.api.imrenagi.com/Course"
+    type: "course.demoapp.imrenagicom/Course"
   }];
   string batch = 3 [(google.api.resource_reference) = {
-    type: "course.api.imrenagi.com/CourseBatch"
+    type: "course.demoapp.imrenagicom/CourseBatch"
   }];
   double price = 4 [(google.api.field_behavior) = OUTPUT_ONLY];
   string currency = 5 [(google.api.field_behavior) = OUTPUT_ONLY];
@@ -78,7 +78,7 @@ message GetBookingRequest {
   string booking = 1 [
     (google.api.field_behavior) = REQUIRED,
     (google.api.resource_reference) = {
-      type: "course.api.imrenagi.com/Booking"
+      type: "course.demoapp.imrenagicom/Booking"
     }];
 }
 
@@ -86,7 +86,7 @@ message ReserveBookingRequest {
   string booking = 1 [
     (google.api.field_behavior) = REQUIRED,
     (google.api.resource_reference) = {
-      type: "course.api.imrenagi.com/Booking"
+      type: "course.demoapp.imrenagicom/Booking"
     }];
 }
 
@@ -96,7 +96,7 @@ message SetPaymentDetailRequest {
   string booking = 1 [
     (google.api.field_behavior) = REQUIRED,
     (google.api.resource_reference) = {
-      type: "course.api.imrenagi.com/Booking"
+      type: "course.demoapp.imrenagicom/Booking"
     }];
   Payment payment = 2 [(google.api.field_behavior) = REQUIRED];
   Customer customer = 3 [(google.api.field_behavior) = REQUIRED];
@@ -108,7 +108,7 @@ message ExpireBookingRequest {
   string booking = 1 [
     (google.api.field_behavior) = REQUIRED,
     (google.api.resource_reference) = {
-      type: "course.api.imrenagi.com/Booking"
+      type: "course.demoapp.imrenagicom/Booking"
     }];
 }
 
@@ -119,7 +119,7 @@ message ListBookingsRequest {
   string invoice = 1 [
     (google.api.field_behavior) = OPTIONAL,
     (google.api.resource_reference) = {
-      type: "payment.api.imrenagi.com/Invoice"
+      type: "payment.demoapp.imrenagicom/Invoice"
     }];
   // booking status used for filtering.
   Status status = 2;
