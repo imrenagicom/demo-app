@@ -11,7 +11,7 @@ var (
 	ErrReservationMaxRetryExceeded = errors.New("reservation max retry exceeded")
 	ErrReleaseMaxRetryExceeded     = errors.New("booking release max retry exceeded")
 
-	ErrBookingAlreadyExpired   = ErrInvalidStateChange{Message: "booking already expired"}
+	ErrBookingAlreadyExpired   = errors.New("booking already expired")
 	ErrBookingAlreadyCompleted = ErrInvalidStateChange{Message: "booking already completed"}
 )
 
