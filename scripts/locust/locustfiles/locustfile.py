@@ -51,6 +51,10 @@ class GeneralUser(FastHttpUser):
         }
       }, name="/api/course/v1/bookings")
       
+      if booking_res.status_code != 200:
+        logging.error("booking: %s is not created", booking_res.json())
+        return None
+      
       booking = booking_res.json()["number"]
       self.client.post(f"/api/course/v1/bookings/{booking}:reserve", json={}, name="/api/course/v1/bookings/{booking}:reserve")      
       logging.info("booking: %s is reserved", booking)      
@@ -63,11 +67,16 @@ class GeneralUser(FastHttpUser):
     @task(1)
     def make_reservation_with_expiration(self):
       booking = self.reservation()
+      if booking is None:
+        return
       self.client.post(f"/api/course/v1/bookings/{booking}:expire", json={}, name="/api/course/v1/bookings/{booking}:expire")
     
     @task(1)
     def make_reservation_with_two_expiration(self):
-      booking = self.reservation()
+      booking = self.reservation()      
+      if booking is None:
+        return
+      
       self.client.post(f"/api/course/v1/bookings/{booking}:expire", json={}, name="/api/course/v1/bookings/{booking}:expire")
       self.client.post(f"/api/course/v1/bookings/{booking}:expire", json={}, name="/api/course/v1/bookings/{booking}:expire")
           
