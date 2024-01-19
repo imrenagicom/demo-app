@@ -8,7 +8,22 @@ This project is a gRPC server, written in Go, that provides few endpoints to man
 
 ## Getting Started
 
+### Pre-setup
+
+I have prepared some basic setup here including the following:
+
+* Docker compose file to start few dependencies.
+* Logger initialization which will write the logs to `stdout` and file located on `logs/app.log`. Thus, you can just directly use zerolog to log your application. You can find the initialization on [server.go](./cmd/course/commands/server.go#L51).
+
+### Running the application
+
 1. Make sure you have terminated all running containers from other projects if any. Run `docker compose down` on the other project if necessary.
+
+1. Set these environment variable in your profile (e.g. `~/.bashrc`):
+
+    ```bash
+    export REDIS_PASSWORD=<set to password you like>
+    ```
 
 1. From this project directory, start all dependencies with docker compose for this project:
 
@@ -16,6 +31,8 @@ This project is a gRPC server, written in Go, that provides few endpoints to man
     make bootstrap
     docker compose up -d
     ```
+
+    Make sure you have `make` installed. If not, run `apt install make` or whatever you need to do to install `make` on your machine.
 
     Please check the `docker-compose.yml` file to see what services are started.
 
