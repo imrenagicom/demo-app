@@ -33,16 +33,17 @@ I have prepared some basic setup here including the following:
     ```
 
     Make sure you have `make` installed. If not, run `apt install make` or whatever you need to do to install `make` on your machine.
+    
+    If you get error when running `make bootstrap` because some dependencies are missing, just install them. For instance, if you got this following errors:
 
-    Please check the `docker-compose.yml` file to see what services are started.
-
-1. Seed the database by running the following command from this project directory
-
-    ```bash
-    make course/seed
+    ```
+    no required module provides package google.golang.org/grpc/cmd/protoc-gen-go-grpc; to add it:
+        go get google.golang.org/grpc/cmd/protoc-gen-go-grpc
     ```
 
-    If necessary, you may update the data after it is seeded to database. Or you can truncate the database and re-seed it if necessary.
+    In this case, run `go get google.golang.org/grpc/cmd/protoc-gen-go-grpc`.
+
+    Please check the `docker-compose.yml` file to see what services are started.
 
 1. To start this API server, run:
 
@@ -51,6 +52,14 @@ I have prepared some basic setup here including the following:
     ```
     
     You should see that HTTP server starts at port 8800 and gRPC server starts at port 9900.
+
+1. Seed the database by running the following command from this project directory
+
+    ```bash
+    make course/seed
+    ```
+
+    If necessary, you may update the data after it is seeded to database. Or you can truncate the database and re-seed it if necessary.
 
 1. Check out list of available APIs from the swagger docs. Go to `http://localhost:8800/swagger`. You can try out the API from there as well if you want.
 
