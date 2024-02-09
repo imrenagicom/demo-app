@@ -61,6 +61,8 @@ services:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.retention.time=5m'
       - '--storage.tsdb.retention.size=10GB'
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
 volumes:
   grafana_data:
