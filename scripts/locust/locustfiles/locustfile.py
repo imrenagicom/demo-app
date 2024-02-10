@@ -60,7 +60,7 @@ class GeneralUser(FastHttpUser):
       logging.info("booking: %s is reserved", booking)      
       return booking
     
-    @task(1)
+    @task(3)
     def make_reservation(self):
       self.reservation()
       
