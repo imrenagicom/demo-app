@@ -99,8 +99,8 @@ While you may see the implementation of the load generator, I suggest you to **n
 
 1. Open your browser and go to `http://localhost:8089`. You should see the locust dashboard. There are two users scenarios:
 
-  * `GeneralUser` is the scenario that you can use to test several APIs. Use this for most of the time when working on the final challenges. You do not need to spawn a lot of users to test this scenario. Few users are enough.
+    * `GeneralUser` is the scenario that you can use to test several APIs. Use this for most of the time when working on the final challenges. You do not need to spawn a lot of users to test this scenario. One or just a few users are enough.
 
-  * `CompetingUser` is the scenario that you can use later when working on the tracing final challenge. The scenario is designed to simulate a competition between users when making the reservation. You need to spawn a more users to test this scenario to see how it might impact the performance of the system.
+    * `CompetingUser` is the scenario that you can use later when working on the tracing final challenge. The scenario is designed to simulate a competition between users when making the reservation. You need to spawn a more users to test this scenario to see how it might impact the performance of the system.
 
 1. To start the load generator, go to `http://localhost:8089`, fill the parameter as you need, and click `Start Swarming`.
