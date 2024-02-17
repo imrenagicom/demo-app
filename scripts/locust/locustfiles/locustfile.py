@@ -92,5 +92,39 @@ class GeneralUser(FastHttpUser):
     def get_courses_with_random_string(self):      
       course = self.random_string()
       self.client.get(f"/api/course/v1/courses/{course}", name="/api/course/v1/courses/{course}") 
+
+class CompetingUser(FastHttpUser):    
+    @task(1)
+    def reservation(self):
+      concert_list_page_token = ""
+      limit = 1
+      res = self.client.get(f"/api/course/v1/courses?pageToken={concert_list_page_token}&pageSze={limit}", name="/api/course/v1/courses")
+      concert_list_page_token = res.json()["nextPageToken"]
       
+      items = res.json()["courses"]      
+      idx = 0
+      course = items[idx]["courseId"]
+      course_res = self.client.get(f"/api/course/v1/courses/{course}", name="/api/course/v1/courses/{course}") 
+      
+      course_data = course_res.json()
+      batch = course_data["batches"][random.randint(0, len(course_data["batches"]) - 1)]["batchId"]
+
+      booking_res = self.client.post("/api/course/v1/bookings", json={
+        "course": course,
+        "batch": batch,
+        "customer": {
+          "name": "Foo",
+          "email": "foo@bar.com"  
+        }
+      }, name="/api/course/v1/bookings")
+      
+      if booking_res.status_code != 200:
+        logging.error("booking: %s is not created", booking_res.json())
+        return None
+      
+      booking = booking_res.json()["number"]
+      self.client.post(f"/api/course/v1/bookings/{booking}:reserve", json={}, name="/api/course/v1/bookings/{booking}:reserve")      
+      logging.info("booking: %s is reserved", booking)      
+      return booking
+    
     
