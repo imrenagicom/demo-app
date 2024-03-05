@@ -26,9 +26,17 @@ type Service struct {
 }
 
 func (s Service) ListCourse(ctx context.Context, req *v1.ListCoursesRequest) ([]Course, string, error) {
-	return s.store.FindAllCourse(ctx,
+	opts := []ListOption{
 		WithMaxResults(req.GetPageSize()),
-		WithNextPage(req.GetPageToken()))
+		WithNextPage(req.GetPageToken()),
+	}
+	for _, f := range req.GetListMask().GetPaths() {
+		switch f {
+		case "courses.batches":
+			opts = append(opts, WithPreload())
+		}
+	}
+	return s.store.FindAllCourse(ctx, opts...)
 }
 
 func (s Service) GetCourse(ctx context.Context, req *v1.GetCourseRequest) (*Course, error) {

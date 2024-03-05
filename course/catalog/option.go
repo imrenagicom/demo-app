@@ -8,8 +8,9 @@ import (
 )
 
 type ListOptions struct {
-	Limit uint64
-	Page  uint64
+	Limit   uint64
+	Page    uint64
+	Preload bool
 }
 
 func (f ListOptions) GetOffset() uint64 {
@@ -23,6 +24,12 @@ func WithMaxResults(limit uint64) ListOption {
 		if limit > 0 {
 			o.Limit = limit
 		}
+	}
+}
+
+func WithPreload() ListOption {
+	return func(o *ListOptions) {
+		o.Preload = true
 	}
 }
 
@@ -57,7 +64,7 @@ func decode(token string) (pageToken, error) {
 }
 
 type FindOptions struct {
-	Tx       *sqlx.Tx
+	Tx *sqlx.Tx
 }
 
 type FindOption func(*FindOptions)

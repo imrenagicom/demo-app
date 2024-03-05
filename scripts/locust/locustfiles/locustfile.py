@@ -100,6 +100,14 @@ class CompetingUser(FastHttpUser):
       limit = 1
       res = self.client.get(f"/api/course/v1/courses?pageToken={concert_list_page_token}&pageSze={limit}", name="/api/course/v1/courses")
       concert_list_page_token = res.json()["nextPageToken"]
+
+class CompetingUser(FastHttpUser):    
+    @task(1)
+    def reservation(self):
+      concert_list_page_token = ""
+      limit = 1
+      res = self.client.get(f"/api/course/v1/courses?pageToken={concert_list_page_token}&pageSze={limit}", name="/api/course/v1/courses")
+      concert_list_page_token = res.json()["nextPageToken"]
       
       items = res.json()["courses"]      
       idx = 0
@@ -127,4 +135,25 @@ class CompetingUser(FastHttpUser):
       logging.info("booking: %s is reserved", booking)      
       return booking
     
+    @task(1)
+    def list_preload(self):
+      concert_list_page_token = ""
+      n_iter = generate_random_page_visit(pdf) + 1
+      limit = 20
+      res = None      
+      for _ in range(n_iter):        
+        res = self.client.get(f"/api/course/v1/courses?pageToken={concert_list_page_token}&pageSze={limit}&listMask=courses.batches", name="/api/course/v1/courses")
+        concert_list_page_token = res.json()["nextPageToken"]
+        time.sleep(0.1)
+        
+    @task(1)
+    def list(self):
+      concert_list_page_token = ""
+      n_iter = generate_random_page_visit(pdf) + 1
+      limit = 20
+      res = None      
+      for _ in range(n_iter):        
+        res = self.client.get(f"/api/course/v1/courses?pageToken={concert_list_page_token}&pageSze={limit}", name="/api/course/v1/courses")
+        concert_list_page_token = res.json()["nextPageToken"]
+        time.sleep(0.1)
     

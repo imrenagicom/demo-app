@@ -64,6 +64,13 @@ func (s *Store) FindAllCourse(ctx context.Context, opts ...ListOption) ([]Course
 			return nil, "", err
 		}
 
+		if options.Preload {
+			batches, _, err := s.FindAllBatchesByCourseID(ctx, c.ID.String())
+			if err != nil {
+				return nil, "", err
+			}
+			c.Batches = batches
+		}
 		courses = append(courses, c)
 	}
 	return courses, nextPage, nil
@@ -79,7 +86,7 @@ func (s *Store) FindCourseByID(ctx context.Context, id string) (*Course, error) 
 		PlaceholderFormat(sq.Dollar)
 	if err := getConcert.QueryRowContext(ctx).Scan(
 		&c.ID, &c.Name, &c.Slug, &c.Description, &c.Status, &c.PublishedAt,
-	); err != nil {		
+	); err != nil {
 		// if errors.Is(err, sql.ErrNoRows) {
 		// 	return nil, db.ErrResourceNotFound{Message: fmt.Sprintf("course with id %s not found", id)}
 		// }
@@ -240,4 +247,43 @@ func (c *Store) UpdateBatchAvailableSeats(ctx context.Context, b *Batch, opts ..
 	}
 
 	return nil
+}
+
+func (c *Store) FindAllBatchesByCourseID(ctx context.Context, courseID string, opts ...ListOption) ([]Batch, string, error) {
+	ctx, span := tracer.Start(ctx, "Store.FindAllBatchesByCourseID")
+	defer span.End()
+	options := &ListOptions{
+		Limit: 10,
+	}
+	for _, o := range opts {
+		o(options)
+	}
+
+	nextPage := pageToken{page: options.Page + 1}.encode()
+	var batches []Batch
+	sb := sq.StatementBuilder.RunWith(c.dbCache)
+	selectBatches := sb.
+		Select("id", "name", "max_seats", "available_seats", "price", "currency", "start_date", "end_date", "version").
+		From("course_batches").
+		Where(sq.Eq{"course_id": courseID, "deleted_at": nil, "status": BatchStatusPublished}).
+		OrderBy("created_at DESC").
+		Offset(uint64(options.GetOffset())).
+		Limit(uint64(options.Limit)).
+		PlaceholderFormat(sq.Dollar)
+
+	rows, err := selectBatches.QueryContext(ctx)
+	if err != nil {
+		return nil, "", err
+	}
+
+	for rows.Next() {
+		var b Batch
+		if err := rows.Scan(
+			&b.ID, &b.Name, &b.MaxSeats, &b.AvailableSeats, &b.Price, &b.Currency, &b.StartDate, &b.EndDate, &b.Version,
+		); err != nil {
+			return nil, "", err
+		}
+		batches = append(batches, b)
+	}
+	return batches, nextPage, nil
 }

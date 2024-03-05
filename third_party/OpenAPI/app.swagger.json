@@ -269,6 +269,12 @@
             "in": "query",
             "required": false,
             "type": "string"
+          },
+          {
+            "name": "listMask",
+            "in": "query",
+            "required": false,
+            "type": "string"
           }
         ],
         "tags": [
