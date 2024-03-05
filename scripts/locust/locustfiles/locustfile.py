@@ -100,14 +100,6 @@ class CompetingUser(FastHttpUser):
       limit = 1
       res = self.client.get(f"/api/course/v1/courses?pageToken={concert_list_page_token}&pageSze={limit}", name="/api/course/v1/courses")
       concert_list_page_token = res.json()["nextPageToken"]
-
-class CompetingUser(FastHttpUser):    
-    @task(1)
-    def reservation(self):
-      concert_list_page_token = ""
-      limit = 1
-      res = self.client.get(f"/api/course/v1/courses?pageToken={concert_list_page_token}&pageSze={limit}", name="/api/course/v1/courses")
-      concert_list_page_token = res.json()["nextPageToken"]
       
       items = res.json()["courses"]      
       idx = 0
