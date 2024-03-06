@@ -249,9 +249,7 @@ func (c *Store) UpdateBatchAvailableSeats(ctx context.Context, b *Batch, opts ..
 	return nil
 }
 
-func (c *Store) FindAllBatchesByCourseID(ctx context.Context, courseID string, opts ...ListOption) ([]Batch, string, error) {
-	ctx, span := tracer.Start(ctx, "Store.FindAllBatchesByCourseID")
-	defer span.End()
+func (c *Store) FindAllBatchesByCourseID(ctx context.Context, courseID string, opts ...ListOption) ([]Batch, string, error) {	
 	options := &ListOptions{
 		Limit: 10,
 	}
