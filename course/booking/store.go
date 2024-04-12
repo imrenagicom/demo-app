@@ -94,6 +94,10 @@ func (s *Store) FindBookingByID(ctx context.Context, ID string, opts ...FindOpti
 		return nil, err
 	}
 
+	if rand.Intn(5)+1 == 3 {
+		<-time.After(time.Duration(rand.Intn(300)) * time.Millisecond)
+	}
+
 	return &b, nil
 }
 

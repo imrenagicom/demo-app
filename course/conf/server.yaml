@@ -15,8 +15,8 @@ db:
   user: course
   password: course
   port: 5432
-  maxIdleConn: 1
-  maxOpenConn: 1
+  maxIdleConn: 10
+  maxOpenConn: 20
 redis:
   host: 127.0.0.1
   port: 6379

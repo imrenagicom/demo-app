@@ -175,10 +175,6 @@ func (s Service) releaseBooking(ctx context.Context, tx *sqlx.Tx, b *Booking, re
 		return err
 	}
 
-	if rand.Intn(5)+1 == 3 {
-		<-time.After(time.Duration(rand.Intn(300)) * time.Millisecond)
-	}
-
 	err = s.catalogStore.UpdateBatchAvailableSeats(ctx, batch, catalog.WithUpdateTx(tx))
 	if err != nil && !errors.Is(err, db.ErrNoRowUpdated) {
 		return err
