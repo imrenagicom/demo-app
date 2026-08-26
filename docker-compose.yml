@@ -43,7 +43,7 @@ services:
       - "6379:6379"
 
   loki:
-    image: grafana/loki:2.9.2
+    image: grafana/loki:3.7.6
     ports:
       - "3100:3100"
     volumes:
