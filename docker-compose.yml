@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   fluentbit:
-    image: fluent/fluent-bit:2.1.10
+    image: fluent/fluent-bit:5.1.1
     ports:
       - "24224:24224"
       - "24224:24224/udp"
