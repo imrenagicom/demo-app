@@ -19,10 +19,11 @@ I have prepared some basic setup here including the following:
 
 1. Make sure you have terminated all running containers from other projects if any. Run `docker compose down` on the other project if necessary.
 
-1. Set these environment variable in your profile (e.g. `~/.bashrc`):
+1. Set local-only passwords in your shell (do not commit them or put real credentials in the repository):
 
     ```bash
-    export REDIS_PASSWORD=<set to password you like>
+    export REDIS_PASSWORD='choose-a-local-redis-password'
+    export GRAFANA_ADMIN_PASSWORD='choose-a-local-grafana-password'
     ```
 
 1. From this project directory, start all dependencies with docker compose for this project:
@@ -51,9 +52,11 @@ I have prepared some basic setup here including the following:
     make course/server
     ```
     
-    You should see that HTTP server starts at port 8800 and gRPC server starts at port 9900.
+    You should see that HTTP server starts at port 8800 and gRPC server starts at port 9900. The Compose host ports are loopback-only.
 
-1. Seed the database by running the following command from this project directory
+    When running the application outside Docker, set `COURSE_SERVER_REDIS_PASSWORD="$REDIS_PASSWORD"` so the client uses the password configured for Redis.
+
+1. Seed the database by running the following command from this project directory:
 
     ```bash
     make course/seed
@@ -61,7 +64,7 @@ I have prepared some basic setup here including the following:
 
     If necessary, you may update the data after it is seeded to database. Or you can truncate the database and re-seed it if necessary.
 
-1. Check out list of available APIs from the swagger docs. Go to `http://localhost:8800/swagger`. You can try out the API from there as well if you want.
+1. Check out the list of available APIs from the Swagger docs at `http://127.0.0.1:8800/swagger`. You can try out the API from there as well.
 
 ## Running load generator
 

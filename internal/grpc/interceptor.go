@@ -31,8 +31,6 @@ func Logger() logging.Logger {
 var loggingOpts = []logging.Option{
 	logging.WithLogOnEvents(
 		logging.StartCall,
-		logging.PayloadReceived,
-		logging.PayloadSent,
 		logging.FinishCall,
 	),
 }
@@ -78,9 +76,10 @@ func UnaryServerAppLoggerInterceptor() grpc.UnaryServerInterceptor {
 
 func StreamServerAppLoggerInterceptor() grpc.StreamServerInterceptor {
 	return func(srv interface{}, ss grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) error {
-		err := handler(srv, newWrappedStream(ss))
+		stream := newWrappedStream(ss)
+		err := handler(srv, stream)
 		if err != nil {
-			log.Error().Err(err).Msgf("Error: %v", err)
+			log.Ctx(stream.Context()).Error().Err(err).Msg("stream handler failed")
 			return err
 		}
 		return nil
@@ -89,14 +88,17 @@ func StreamServerAppLoggerInterceptor() grpc.StreamServerInterceptor {
 
 type wrappedStream struct {
 	grpc.ServerStream
+	ctx context.Context
 }
 
 func (w *wrappedStream) Context() context.Context {
-	log := log.With().Str("request_id", uuid.New().String()).
-		Logger()
-	return log.WithContext(context.Background())
+	return w.ctx
 }
 
 func newWrappedStream(s grpc.ServerStream) grpc.ServerStream {
-	return &wrappedStream{s}
+	requestLog := log.With().Str("request_id", uuid.New().String()).Logger()
+	return &wrappedStream{
+		ServerStream: s,
+		ctx:          requestLog.WithContext(s.Context()),
+	}
 }
