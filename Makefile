@@ -39,7 +39,7 @@ SWAGGER_UI_VERSION:=v4.15.5
 
 bootstrap: install/protoc generate
 	go install github.com/vektra/mockery/v2@v2.21.0
-	go install github.com/golang/mock/mockgen@latest
+	go install github.com/golang/mock/mockgen@v1.7.0
 	go install github.com/bufbuild/buf/cmd/buf@$(BUF_VERSION)
 	go get ./...
 	go mod tidy

@@ -9,8 +9,10 @@ limits_config:
   ingestion_burst_size_mb: 20
   per_stream_rate_limit: 10MB
   per_stream_rate_limit_burst: 20MB
+  retention_period: 24h
 
 common:
+  instance_addr: 127.0.0.1
   path_prefix: /loki
   storage:
     filesystem:
@@ -21,19 +23,18 @@ common:
     kvstore:
       store: inmemory
 
-table_manager:
-  retention_deletes_enabled: true
-  retention_period: 24h
+compactor:
+  working_directory: /loki/compactor
+  compaction_interval: 10m
+  retention_enabled: true
+  delete_request_store: filesystem
 
 schema_config:
   configs:
-    - from: 2020-10-24
-      store: boltdb-shipper
+    - from: 2024-04-01
+      store: tsdb
       object_store: filesystem
-      schema: v11
+      schema: v13
       index:
         prefix: index_
         period: 24h
-
-ruler:
-  alertmanager_url: http://localhost:9093

@@ -1,19 +1,21 @@
-version: '3.9'
 services:
   fluentbit:
-    image: fluent/fluent-bit:2.1.10
+    image: fluent/fluent-bit:5.1.1
     ports:
-      - "24224:24224"
-      - "24224:24224/udp"
+      - "127.0.0.1:24224:24224"
+      - "127.0.0.1:24224:24224/udp"
     volumes:
-      - ./scripts/fluentbit/fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf
-      - ./scripts/fluentbit/map.json:/fluent-bit/etc/map.json
+      - ./scripts/fluentbit/fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf:ro
+      - ./scripts/fluentbit/map.json:/fluent-bit/etc/map.json:ro
       - ./logs:/app/logs
 
   grafana:
-    image: grafana/grafana:latest
+    image: grafana/grafana:13.2.0
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:?set GRAFANA_ADMIN_PASSWORD in .env}
     ports:
-      - 3000:3000
+      - "127.0.0.1:3000:3000"
     volumes:
       - ./scripts/grafana/provisioning:/etc/grafana/provisioning
       - ./scripts/grafana/dashboards:/etc/grafana/demo-dashboards
@@ -27,7 +29,7 @@ services:
       POSTGRES_USER: course
       POSTGRES_PASSWORD: course
     ports:
-      - "5432:5432"
+      - "127.0.0.1:5432:5432"
     restart: always
     volumes:
       - postgres:/var/lib/postgresql/data/
@@ -40,23 +42,24 @@ services:
     volumes:
       - redis_data:/bitnami
     ports:
-      - "6379:6379"
+      - "127.0.0.1:6379:6379"
 
   loki:
-    image: grafana/loki:2.9.2
+    image: grafana/loki:3.7.6
     ports:
-      - "3100:3100"
+      - "127.0.0.1:3100:3100"
     volumes:
-      - ./scripts/loki:/etc/loki
+      - ./scripts/loki/config.yaml:/etc/loki/config.yaml:ro
+      - loki_data:/loki
     command: -config.file=/etc/loki/config.yaml
 
   prometheus:
-    image: prom/prometheus:latest
+    image: prom/prometheus:v3.14.0
     volumes:
-      - ./scripts/prometheus:/etc/prometheus
+      - ./scripts/prometheus:/etc/prometheus:ro
       - prometheus_data:/prometheus
     ports:
-      - "9090:9090"
+      - "127.0.0.1:9090:9090"
     command: 
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.retention.time=5m'
@@ -68,5 +71,5 @@ volumes:
   grafana_data:
   postgres:
   redis_data:
+  loki_data:
   prometheus_data:
-  

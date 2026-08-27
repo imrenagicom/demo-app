@@ -3,6 +3,7 @@ package instrumentation
 import (
 	"io"
 	"os"
+	"path/filepath"
 	"time"
 
 	"github.com/imrenagicom/demo-app/internal/config"
@@ -24,10 +25,15 @@ func InitializeLogger(conf config.Logging) func() {
 	writers := []io.Writer{stdOut}
 	var runLogFile *os.File
 	if conf.LogFileEnabled {
+		if directory := filepath.Dir(conf.LogFilePath); directory != "." {
+			if err := os.MkdirAll(directory, 0750); err != nil {
+				log.Fatal().Err(err).Msg("unable to create log directory")
+			}
+		}
 		runLogFile, err = os.OpenFile(
 			conf.LogFilePath,
 			os.O_APPEND|os.O_CREATE|os.O_WRONLY,
-			0666,
+			0600,
 		)
 		if err != nil {
 			log.Fatal().Err(err).Msg("unable to open log file")
