@@ -31,6 +31,8 @@ func Logger() logging.Logger {
 var loggingOpts = []logging.Option{
 	logging.WithLogOnEvents(
 		logging.StartCall,
+		logging.PayloadReceived,
+		logging.PayloadSent,
 		logging.FinishCall,
 	),
 }
