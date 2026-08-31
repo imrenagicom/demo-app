@@ -8,7 +8,7 @@ require (
 	github.com/golang-migrate/migrate/v4 v4.19.1
 	github.com/google/uuid v1.6.0
 	github.com/gorilla/mux v1.8.1
-	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.3.3
+	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.3.4
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.30.0
 	github.com/jmoiron/sqlx v1.4.0
 	github.com/redis/go-redis/v9 v9.22.0
