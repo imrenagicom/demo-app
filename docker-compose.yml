@@ -1,6 +1,6 @@
 services:
   fluentbit:
-    image: fluent/fluent-bit:5.1.1
+    image: fluent/fluent-bit:5.1.2
     ports:
       - "127.0.0.1:24224:24224"
       - "127.0.0.1:24224:24224/udp"
@@ -10,7 +10,7 @@ services:
       - ./logs:/app/logs
 
   grafana:
-    image: grafana/grafana:13.2.0
+    image: grafana/grafana:13.2.1
     environment:
       GF_SECURITY_ADMIN_USER: admin
       GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:?set GRAFANA_ADMIN_PASSWORD in .env}
@@ -45,7 +45,7 @@ services:
       - "127.0.0.1:6379:6379"
 
   loki:
-    image: grafana/loki:3.7.6
+    image: grafana/loki:3.7.7
     ports:
       - "127.0.0.1:3100:3100"
     volumes:
