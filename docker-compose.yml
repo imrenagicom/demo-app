@@ -22,7 +22,7 @@ services:
       - grafana_data:/var/lib/grafana
 
   postgres:
-    image: postgres:16
+    image: postgres:18
     command: postgres -c 'max_connections=1000'
     environment:
       POSTGRES_DB: course
